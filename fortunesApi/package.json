@@ -1,18 +1,19 @@
 {
-  "name": "fortunesApi",
+  "name": "fortunesapi",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {
+    "express": "^4.17.1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.4"
   },
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+  "scripts": {
+    "start": " node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
