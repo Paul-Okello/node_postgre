@@ -8,12 +8,11 @@ app.get("/fortunes", (request, response) => {
 });
 
 app.get("/fortunes/random", (request, response) => {
-  console.log("Requesting random fortune");
+  response.json(fortunes[Math.floor(Math.random() * fortunes.length)]);
+});
 
-  const randomIndex = Math.floor(Math.random() * fortunes.length);
-
-  const rFortune = fortunes[randomIndex];
-  response.json(rFortune);
+app.get("/fortunes/:id", (request, response) => {
+  response.json(fortunes.find((f) => f.id == request.params.id));
 });
 
 module.exports = app;
