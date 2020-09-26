@@ -16,5 +16,8 @@
     "message": "You will move quite fast.",
     "luckyNumber": 15,
     "spiritAnimal": "Cheetah"
-  }
+  },
+  { "id": 4, "message": "Hello", "luckyNumber": 5, "spiritAnimal": "Mole" },
+  { "id": 5, "message": "Hello", "luckyNumber": 5, "spiritAnimal": "Mole" },
+  { "id": 6, "message": "Hello", "luckyNumber": 5, "spiritAnimal": "Mole" }
 ]

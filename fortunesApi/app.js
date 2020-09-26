@@ -1,3 +1,4 @@
+const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const fortunes = require("./data/fortunes");
@@ -30,6 +31,9 @@ app.post("/fortunes", (request, response) => {
   };
 
   const newFortunes = fortunes.concat(fortune);
+  fs.writeFile("./data/fortunes.json", JSON.stringify(newFortunes), (error) =>
+    console.log(error)
+  );
   response.json(newFortunes);
 });
 module.exports = app;
