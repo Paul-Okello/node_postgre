@@ -19,18 +19,16 @@ app.get("/fortunes/:id", (request, response) => {
 });
 
 app.post("/fortunes", (request, response) => {
-  console.log(request.body);
   const { message, luckyNumber, spiritAnimal } = request.body;
 
   const fortuneIds = fortunes.map((f) => f.id);
-  const fortune = {
+
+  const newFortunes = fortunes.concat({
     id: (fortuneIds.length > 0 ? Math.max(...fortuneIds) : 0) + 1,
     message,
     luckyNumber,
     spiritAnimal,
-  };
-
-  const newFortunes = fortunes.concat(fortune);
+  });
   fs.writeFile("./data/fortunes.json", JSON.stringify(newFortunes), (error) =>
     console.log(error)
   );
