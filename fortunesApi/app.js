@@ -1,9 +1,11 @@
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
+
 const fortunes = require("./data/fortunes");
 
 const app = express();
+
 app.use(bodyParser.json());
 
 app.get("/fortunes", (request, response) => {
@@ -18,6 +20,12 @@ app.get("/fortunes/:id", (request, response) => {
   response.json(fortunes.find((f) => f.id == request.params.id));
 });
 
+const writeFortunes = (json) => {
+  fs.writeFile("./data/fortunes.json", JSON.stringify(json), (error) => {
+    console.log(error);
+  });
+};
+
 app.post("/fortunes", (request, response) => {
   const { message, luckyNumber, spiritAnimal } = request.body;
 
@@ -29,25 +37,19 @@ app.post("/fortunes", (request, response) => {
     luckyNumber,
     spiritAnimal,
   });
-  fs.writeFile("./data/fortunes.json", JSON.stringify(newFortunes), (error) =>
-    console.log(error)
-  );
+  writeFortunes(newFortunes);
   response.json(newFortunes);
 });
 
 app.put("/fortunes/:id", (request, response) => {
   const { id } = request.params;
-  const { message, luckyNumber, spiritAnimal } = request.body;
 
   const oldFortune = fortunes.find((f) => f.id == id);
 
-  oldFortune.message = message;
-  oldFortune.luckyNumber = luckyNumber;
-  oldFortune.spiritAnimal = spiritAnimal;
-
-  fs.writeFile("./data/fortunes.json", JSON.stringify(fortunes), (error) =>
-    console.log(error)
-  );
+  ["message", "luckyNumber", "spiritAnimal"].forEach((key) => {
+    if (request.body[key]) oldFortune[key] = request.body[key];
+  });
+  writeFortunes(fortunes);
   response.json(fortunes);
 });
 module.exports = app;
