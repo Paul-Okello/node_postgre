@@ -34,4 +34,20 @@ app.post("/fortunes", (request, response) => {
   );
   response.json(newFortunes);
 });
+
+app.put("/fortunes/:id", (request, response) => {
+  const { id } = request.params;
+  const { message, luckyNumber, spiritAnimal } = request.body;
+
+  const oldFortune = fortunes.find((f) => f.id == id);
+
+  oldFortune.message = message;
+  oldFortune.luckyNumber = luckyNumber;
+  oldFortune.spiritAnimal = spiritAnimal;
+
+  fs.writeFile("./data/fortunes.json", JSON.stringify(fortunes), (error) =>
+    console.log(error)
+  );
+  response.json(fortunes);
+});
 module.exports = app;
