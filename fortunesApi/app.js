@@ -52,4 +52,13 @@ app.put("/fortunes/:id", (request, response) => {
   writeFortunes(fortunes);
   response.json(fortunes);
 });
+
+app.delete("/fortunes/:id", (request, response) => {
+  const { id } = request.params;
+
+  const newFortunes = fortunes.filter((f) => f.id != id);
+
+  writeFortunes(newFortunes);
+  response.json(newFortunes);
+});
 module.exports = app;
